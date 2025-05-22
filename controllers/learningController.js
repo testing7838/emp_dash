@@ -1,6 +1,10 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+
+
+
+
 const learningCourse = async (req, res, next) => {
   let { id, coursename, appeared_in_exam, pass } = req.body;
   if (id) id = parseInt(id);
@@ -34,6 +38,19 @@ const learningCourse = async (req, res, next) => {
   }
 };
 
+
+const getAllCourses = async (req, res, next) => {
+  try {
+    const courses = await prisma.courses.findMany();
+    res.status(200).json({ courses });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ err });
+  }
+}
+
+
+
 const upcomingCourse = () => {
 
 }
@@ -47,4 +64,4 @@ const completedCourse = () => {
 }
 
 
-module.exports = { learningCourse, upcomingCourse, runningCourse, completedCourse }
+module.exports = { learningCourse, upcomingCourse, runningCourse, completedCourse, getAllCourses }
