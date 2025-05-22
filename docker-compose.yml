@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      # Update username and password to match your local PostgreSQL credentials
+      DATABASE_URL: postgresql://user:nirbh%40y7838A@192.168.1.2:5432/employee
+    command: sh -c "npx prisma generate && npm start"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mydb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # Comment out this service if you're using PostgreSQL installed on your host machine
+
+volumes:
+  pgdata:

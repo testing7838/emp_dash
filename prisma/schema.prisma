@@ -1,0 +1,32 @@
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-arm64-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserDetail {
+  id        Int    @id @default(autoincrement())
+  personid  Int    @unique
+  lastname  String
+  firstname String
+  address   String
+  city      String
+  password  String
+}
+
+model Courses {
+ id Int @id @default(autoincrement())
+ coursename String @unique
+//  start_at DateTime
+//  ends_at DateTime
+//  progress Float
+//  score Float
+ appeared_in_exam Boolean
+ pass Boolean
+  @@map("courses")
+}
